@@ -26,5 +26,14 @@ router.beforeEach(async (to, from, next) => {
       return
     }
   }
+  // 需要登录才能访问的页面（创建图片、批量创建图片等）
+  const needLoginPaths = ['/add_picture']
+  if (needLoginPaths.some(path => toUrl.startsWith(path))) {
+    if (!loginUser || !loginUser.id) {
+      message.warning('请先登录')
+      next(`/user/login?redirect=${to.fullPath}`)
+      return
+    }
+  }
   next()
 })
