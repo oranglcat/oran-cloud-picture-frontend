@@ -42,7 +42,7 @@
             <template #cover>
               <img
                 :alt="picture.name"
-                :src="picture.url"
+                :src="picture.thumbnailUrl ?? picture.url"
                 style="height: 180px; object-fit: cover"
               />
             </template>
@@ -72,7 +72,8 @@ import {
   listPictureVoByPageUsingPost,
 } from '@/api/pictureController.ts'
 import { message } from 'ant-design-vue'
-import { useRouter } from 'vue-router' // 定义数据
+import { useRouter } from 'vue-router'
+import * as url from "node:url"; // 定义数据
 
 // 定义数据
 const dataList = ref<API.PictureVO[]>([])
